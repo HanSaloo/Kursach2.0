@@ -64,22 +64,6 @@ void MainWindow::createUI() {
 
 }
 
-/* Метод для активации диалога добавления записей
- * */
-void MainWindow::on_addDeviceButton_clicked()
-{
-    /* Создаем диалог и подключаем его сигнал завершения работы
-     * к слоту обновления вида модели представления данных
-     * */
-    DialogAddDevice *addDeviceDialog = new DialogAddDevice();
-    connect(addDeviceDialog, SIGNAL(signalReady()), this, SLOT(slotUpdateModels()));
-
-    /* Выполняем запуск диалогового окна
-     * */
-    addDeviceDialog->setWindowTitle(tr("Добавить Устройство"));
-    addDeviceDialog->exec();
-}
-
 //void MainWindow::on_pushButton_clicked()
 //{
 
