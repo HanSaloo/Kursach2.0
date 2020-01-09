@@ -1,0 +1,25 @@
+-- --------------------------------------------------------
+-- Сервер:                       127.0.0.1
+-- Версія сервера:               5.6.41 - MySQL Community Server (GPL)
+-- ОС сервера:                   Win32
+-- HeidiSQL Версія:              9.5.0.5196
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Dumping data for table finelist.fine: ~2 rows (приблизно)
+DELETE FROM `fine`;
+/*!40000 ALTER TABLE `fine` DISABLE KEYS */;
+INSERT INTO `fine` (`id`, `names`, `data`, `adress`, `FineC`) VALUES
+	(1, 'Педан Василь Андронович', '01.02.1993', 'Дорошенка 3', 50),
+	(2, 'Сербський Ігор Ігорович', '07.12.1988', 'Чалдаєва 10', 50),
+	(3, 'Курт Дональд Кобейн', '20.11.1967', 'Вашингтон', 27);
+/*!40000 ALTER TABLE `fine` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
