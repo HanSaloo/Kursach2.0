@@ -7,7 +7,7 @@
 #include <QSqlTableModel>
 
 #include <database.h>
-#include <adder.h>
+#include <dialogAdder.h>
 
 namespace Ui {
 class MainWindow;
