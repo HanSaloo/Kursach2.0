@@ -2,9 +2,9 @@
 #include "ui_dialogAdder.h"
 #include <QDebug>
 
-dialogAdder :: dialogAdder(int row, QWidget *parent) :
+DialogAdder :: DialogAdder(int row, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::dialogAdder) {
+    ui(new Ui::DialogAdder) {
 
     ui->setupUi(this);
 
@@ -29,14 +29,14 @@ dialogAdder :: dialogAdder(int row, QWidget *parent) :
     createUI();
 }
 
-dialogAdder::~dialogAdder()
+DialogAdder::~DialogAdder()
 {
     delete ui;
 }
 
 /* Метод настройки модели данных и mapper
  * */
-void dialogAdder::setupModel()
+void DialogAdder::setupModel()
 {
     /* Инициализируем модель и делаем выборку из неё
      * */
@@ -50,15 +50,15 @@ void dialogAdder::setupModel()
      * */
     mapper = new QDataWidgetMapper();
     mapper->setModel(model);
-    mapper->addMapping(ui->HostnameLineEdit, 1);
-    mapper->addMapping(ui->IPAddressLineEdit, 2);
-    mapper->addMapping(ui->MACLineEdit, 3);
+    mapper->addMapping(ui->NamesLineEdit, 1);
+    mapper->addMapping(ui->DateLineEdit, 2);
+    mapper->addMapping(ui->SumLineEdit, 3);
     /* Ручное подтверждение изменения данных
      * через mapper
      * */
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
-    qDebug() << ui->HostnameLineEdit->text();
+    qDebug() << ui->NameLineEdit->text();
     /* Подключаем коннекты от кнопок пролистывания
      * к прилистыванию модели данных в mapper
      * */
@@ -69,31 +69,33 @@ void dialogAdder::setupModel()
     connect(mapper, SIGNAL(currentIndexChanged(int)), this, SLOT(updateButtons(int)));
 }
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 /* Метод для установки валидатора на поле ввода IP и MAC адресов
  * */
-void dialogAdder::createUI()
-{
-    QString ipRange = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";
-    QRegExp ipRegex ("^" + ipRange
-                     + "\\." + ipRange
-                     + "\\." + ipRange
-                     + "\\." + ipRange + "$");
-    QRegExpValidator *ipValidator = new QRegExpValidator(ipRegex, this);
-    ui->IPAddressLineEdit->setValidator(ipValidator);
+//void dialogAdder::createUI()
+//{
+//    QString ipRange = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";
+//    QRegExp ipRegex ("^" + ipRange
+//                     + "\\." + ipRange
+//                     + "\\." + ipRange
+//                     + "\\." + ipRange + "$");
+//    QRegExpValidator *ipValidator = new QRegExpValidator(ipRegex, this);
+//    ui->IPAddressLineEdit->setValidator(ipValidator);
 
-    QString macRange = "(?:[0-9A-Fa-f][0-9A-Fa-f])";
-    QRegExp macRegex ("^" + macRange
-                      + "\\:" + macRange
-                      + "\\:" + macRange
-                      + "\\:" + macRange
-                      + "\\:" + macRange
-                      + "\\:" + macRange
-                      + "\\:" + macRange + "$");
-    QRegExpValidator *macValidator = new QRegExpValidator(macRegex, this);
-    ui->MACLineEdit->setValidator(macValidator);
-}
+//    QString macRange = "(?:[0-9A-Fa-f][0-9A-Fa-f])";
+//    QRegExp macRegex ("^" + macRange
+//                      + "\\:" + macRange
+//                      + "\\:" + macRange
+//                      + "\\:" + macRange
+//                      + "\\:" + macRange
+//                      + "\\:" + macRange
+//                      + "\\:" + macRange + "$");
+//    QRegExpValidator *macValidator = new QRegExpValidator(macRegex, this);
+//    ui->MACLineEdit->setValidator(macValidator);
+//}
 
-//void AddDevice::on_buttonBox_accepted()
+//void dialogAdder::on_buttonBox_accepted()
 //{
 //    /* SQL-запрос для проверки существования записи
 //     * с такими же учетными данными.
@@ -132,14 +134,16 @@ void dialogAdder::createUI()
 //    }
 //}
 
-void dialogAdder::accept()
+////////////////////////////////////////////////////////////////////////////////////////////
+
+void DialogAdder::accept()
 {
-qDebug() << ui->HostnameLineEdit->text();
+qDebug() << ui->NamesLineEdit->text();
 }
 
 /* Метод изменения состояния активности кнопок пролистывания
  * */
-void dialogAdder::updateButtons(int row)
+void DialogAdder::updateButtons(int row)
 {
     /* В том случае, если мы достигаем одного из крайних (самый первый или
      * самый последний) из индексов в таблице данных,

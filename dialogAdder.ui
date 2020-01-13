@@ -1,87 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>DialogAddDevice</class>
+ <widget class="QDialog" name="DialogAddDevice">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>309</height>
+    <width>458</width>
+    <height>311</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QLabel" name="label_6">
-     <property name="text">
-      <string>Заповніть всі поля для реєстрації штрафу в таблицю</string>
-     </property>
-    </widget>
-   </item>
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
       <string>П.І.П</string>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QLineEdit" name="lineEdit">
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item>
+   <item row="1" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Дата</string>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QLineEdit" name="lineEdit_2"/>
-   </item>
-   <item>
+   <item row="2" column="0">
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Сумма</string>
+      <string>Сума</string>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QLineEdit" name="lineEdit_3"/>
+   <item row="0" column="1" colspan="2">
+    <widget class="QLineEdit" name="NamesLineEdit"/>
    </item>
-   <item>
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Номер авто</string>
-     </property>
-    </widget>
+   <item row="2" column="1" colspan="2">
+    <widget class="QLineEdit" name="SumLineEdit"/>
    </item>
-   <item>
-    <widget class="QLineEdit" name="lineEdit_4"/>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>Марка авто</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLineEdit" name="lineEdit_5"/>
-   </item>
-   <item>
+   <item row="4" column="0" colspan="3">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QLineEdit" name="IPAddressLineEdit"/>
+   </item>
+   <item row="3" column="1">
+    <widget class="QPushButton" name="previousButton">
+     <property name="text">
+      <string>Предыдущий</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QPushButton" name="nextButton">
+     <property name="text">
+      <string>Следующий</string>
      </property>
     </widget>
    </item>
@@ -92,12 +75,12 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>DialogAddDevice</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>257</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -108,12 +91,12 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>DialogAddDevice</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>257</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

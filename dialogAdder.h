@@ -9,16 +9,16 @@
 #include <database.h>
 
 namespace Ui {
-class dialogAdder { };
+class DialogAdder { };
 }
 
-class dialogAdder : public QDialog
+class DialogAdder : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit dialogAdder(int row = -1, QWidget *parent = 0);
-    ~dialogAdder();
+    explicit DialogAdder(int row = -1, QWidget *parent = 0);
+    ~DialogAdder();
 
 signals:
     void signalReady();
@@ -28,7 +28,7 @@ private slots:
     void updateButtons(int row);
 
 private:
-    Ui::dialogAdder         *ui;
+    Ui::DialogAdder         *ui;
     QSqlTableModel              *model;
     QDataWidgetMapper           *mapper;
 

@@ -19,15 +19,15 @@
 #define TABLE_NAMES "Names" // П.І.П
 #define TABLE_DATE "Date" // Дата штрафу
 #define TABLE_SUM "Sum" // Сума штрафу
-#define TABLE_CARNUMB "CarNumb" // Номер автомобіля
-#define TABLE_MK "Mark" // Марка авто
+//#define TABLE_CARNUMB "CarNumb" // Номер автомобіля
+//#define TABLE_MK "Mark" // Марка авто
 
 #define DEVICE                  "List"
 #define DEVICE_NAMES             "Names"
 #define DEVICE_DATE               "Date"
 #define DEVICE_SUM              "Sum"
-#define DEVICE_CARMUNB          "CarNumb"
-#define DEVICE_MK               "Mark"
+//#define DEVICE_CARMUNB          "CarNumb"
+//#define DEVICE_MK               "Mark"
 
 //#define TABLE_MESSAGE "Message"
 //#define TABLE_RANDOM "Random"

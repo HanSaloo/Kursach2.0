@@ -28,8 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
                      << tr("Names")
                      << tr("Date")
                      << tr("Sum")
-                     << tr("CarNumb")
-                     << tr("Mark")
+//                     << tr("CarNumb")
+//                     << tr("Mark")
                      );
     this->createUI();
 }
