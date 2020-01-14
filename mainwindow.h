@@ -21,11 +21,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-//private slots:
-//    void on_addDeviceButton_clicked();
-//    void slotUpdateModels();
-//    void slotEditRecord(QModelIndex index);
-
 private:
     Ui::MainWindow              *ui;
     DataBase                    *db;

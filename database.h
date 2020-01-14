@@ -15,17 +15,17 @@
 #define DATABASE_HOSTNAME "ExampleDataBase"
 #define DATABASE_NAME "DataBase.db" // ім'я файлу для SQLlite
 
-#define TABLE "List"
-#define TABLE_NAMES "Names" // П.І.П
-#define TABLE_DATE "Date" // Дата штрафу
-#define TABLE_SUM "Sum" // Сума штрафу
+#define TABLE "`List`" // назва бази данних
+#define TABLE_NAMES "`Names`" // П.І.П
+#define TABLE_DATES "`Dates`" // Дата штрафу
+#define TABLE_SUMA "`Suma`" // Сума штрафу
 //#define TABLE_CARNUMB "CarNumb" // Номер автомобіля
 //#define TABLE_MK "Mark" // Марка авто
 
 #define DEVICE                  "List"
 #define DEVICE_NAMES             "Names"
-#define DEVICE_DATE               "Date"
-#define DEVICE_SUM              "Sum"
+#define DEVICE_DATES               "Dates"
+#define DEVICE_SUMA              "Suma"
 //#define DEVICE_CARMUNB          "CarNumb"
 //#define DEVICE_MK               "Mark"
 

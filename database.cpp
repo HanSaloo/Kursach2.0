@@ -48,14 +48,15 @@ void DataBase::closeDataBase() {
 }
 bool DataBase::createTable() {
     QSqlQuery query;
-    if(!query.exec("CREATE TABLE" TABLE "("
-                   "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                   TABLE_NAMES "NAMES    NOT NULL,"
-                   TABLE_DATE "DATE     NOT NULL,"
-                   TABLE_SUM "VARCHAR(255)    NOT NULL"
+    if(!query.exec("CREATE TABLE " TABLE " ("
+                   "id INT(11) NOT NULL AUTO_INCREMENT, "
+                   TABLE_NAMES "VARCHAR(50)  NOT NULL,"
+                   TABLE_DATES "DATE     NOT NULL,"
+                   TABLE_SUMA "INT(20)  NOT NULL,"
+                   "PRIMARY KEY(id)"
                   /* TABLE_CARNUMB "INTEGER    NOT NULL,"
                    TABLE_MK "MARK      NOT NULL" */
-                   " )"
+                   " );"
                    )){
         qDebug() << "DataBase error of cteate " << TABLE;
         qDebug() << query.lastError().text();
@@ -67,19 +68,15 @@ bool DataBase::createTable() {
 }
 bool DataBase::insertIntoTable(const QVariantList &data) {
     QSqlQuery query;
-    query.prepare("INSERT INTO" TABLE "( "
-                  TABLE_NAMES ", "
-                  TABLE_DATE ", "
-                  TABLE_SUM ", "
-                 /* TABLE_CARNUMB ", "
-                  TABLE_MK */ " ) "
-                                "VALUES (:Names ,:Date ,:Sum)"
-                  );
+    query.prepare("INSERT INTO" DEVICE "( "
+                  DEVICE_NAMES ", "
+                  DEVICE_DATES ", "
+                  DEVICE_SUMA ", "
+                             " ) "
+                                "VALUES (:Names ,:Dates ,:Suma);"  );
     query.bindValue(":Names", data[0].toString());
-    query.bindValue(":Date", data[1].toDate());
-    query.bindValue(":Sum", data[2].toInt());
-//    query.bindValue(":CarNumb", data[3].toInt());
-//    query.bindValue(":Mark", data[4].toString());
+    query.bindValue(":Dates", data[1].toDate());
+    query.bindValue(":Suma", data[2].toInt());
 
 
     if(!query.exec()) {

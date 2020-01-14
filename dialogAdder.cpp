@@ -26,7 +26,6 @@ DialogAdder :: DialogAdder(int row, QWidget *parent) :
         mapper->setCurrentModelIndex(model->index(row,0));
     }
 
-    //createUI();
 }
 
 DialogAdder::~DialogAdder()
@@ -69,31 +68,6 @@ void DialogAdder::setupModel()
     connect(mapper, SIGNAL(currentIndexChanged(int)), this, SLOT(updateButtons(int)));
 }
 
-////////////////////////////////////////////////////////////////////////////////////////
-
-/* Метод для установки валидатора на поле ввода IP и MAC адресов
- * */
-/*void DialogAdder::createUI()
-{
-    QString ipRange = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";
-    QRegExp ipRegex ("^" + ipRange
-                     + "\\." + ipRange
-                     + "\\." + ipRange
-                     + "\\." + ipRange + "$");
-    QRegExpValidator *ipValidator = new QRegExpValidator(ipRegex, this);
-    ui->DateLineEdit->setValidator(ipValidator);
-
-    QString macRange = "(?:[0-9A-Fa-f][0-9A-Fa-f])";
-    QRegExp macRegex ("^" + macRange
-                      + "\\:" + macRange
-                      + "\\:" + macRange
-                      + "\\:" + macRange
-                      + "\\:" + macRange
-                      + "\\:" + macRange
-                      + "\\:" + macRange + "$");
-    QRegExpValidator *macValidator = new QRegExpValidator(macRegex, this);
-   ui->MACLineEdit->setValidator(macValidator);
-} */
 
 void DialogAdder::on_buttonBox_accepted()
 {
@@ -106,7 +80,7 @@ void DialogAdder::on_buttonBox_accepted()
     QSqlQuery query;
     QString str = QString("SELECT EXISTS (SELECT " DEVICE_NAMES " FROM " DEVICE
                           " WHERE ( " DEVICE_NAMES " = '%1' "
-                          " OR " DEVICE_DATE " = '%2' )"
+                          " OR " DEVICE_DATES " = '%2' )"
                           " AND id NOT LIKE '%3' )")
             .arg(ui->NamesLineEdit->text(),
                  ui->DateLineEdit->text(),
@@ -133,7 +107,7 @@ void DialogAdder::on_buttonBox_accepted()
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////
+
 
 void DialogAdder::accept()
 {
