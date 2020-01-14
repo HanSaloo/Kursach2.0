@@ -9,7 +9,7 @@
 #include <database.h>
 
 namespace Ui {
-class DialogAdder { };
+class DialogAdder;
 }
 
 class DialogAdder : public QDialog
@@ -34,7 +34,7 @@ private:
 
 private:
     void setupModel();
-    void createUI();
+  //  void createUI();
     void accept();
 };
 

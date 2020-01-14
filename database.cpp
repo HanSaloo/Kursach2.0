@@ -52,7 +52,7 @@ bool DataBase::createTable() {
                    "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                    TABLE_NAMES "NAMES    NOT NULL,"
                    TABLE_DATE "DATE     NOT NULL,"
-                   TABLE_SUM "VARCHAR(255)    NOT NULL,"
+                   TABLE_SUM "VARCHAR(255)    NOT NULL"
                   /* TABLE_CARNUMB "INTEGER    NOT NULL,"
                    TABLE_MK "MARK      NOT NULL" */
                    " )"
@@ -72,7 +72,7 @@ bool DataBase::insertIntoTable(const QVariantList &data) {
                   TABLE_DATE ", "
                   TABLE_SUM ", "
                  /* TABLE_CARNUMB ", "
-                  TABLE_MK" ) " */
+                  TABLE_MK */ " ) "
                                 "VALUES (:Names ,:Date ,:Sum)"
                   );
     query.bindValue(":Names", data[0].toString());

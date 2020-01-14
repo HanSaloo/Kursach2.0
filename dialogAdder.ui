@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogAddDevice</class>
- <widget class="QDialog" name="DialogAddDevice">
+ <class>DialogAdder</class>
+ <widget class="QDialog" name="DialogAdder">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -52,7 +52,7 @@
     </widget>
    </item>
    <item row="1" column="1" colspan="2">
-    <widget class="QLineEdit" name="IPAddressLineEdit"/>
+    <widget class="QLineEdit" name="DateLineEdit"/>
    </item>
    <item row="3" column="1">
     <widget class="QPushButton" name="previousButton">
@@ -75,7 +75,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>DialogAddDevice</receiver>
+   <receiver>DialogAdder</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -91,7 +91,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>DialogAddDevice</receiver>
+   <receiver>DialogAdder</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

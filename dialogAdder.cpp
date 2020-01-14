@@ -26,7 +26,7 @@ DialogAdder :: DialogAdder(int row, QWidget *parent) :
         mapper->setCurrentModelIndex(model->index(row,0));
     }
 
-    createUI();
+    //createUI();
 }
 
 DialogAdder::~DialogAdder()
@@ -58,7 +58,7 @@ void DialogAdder::setupModel()
      * */
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
-    qDebug() << ui->NameLineEdit->text();
+    qDebug() << ui->NamesLineEdit->text();
     /* Подключаем коннекты от кнопок пролистывания
      * к прилистыванию модели данных в mapper
      * */
@@ -73,66 +73,65 @@ void DialogAdder::setupModel()
 
 /* Метод для установки валидатора на поле ввода IP и MAC адресов
  * */
-//void dialogAdder::createUI()
-//{
-//    QString ipRange = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";
-//    QRegExp ipRegex ("^" + ipRange
-//                     + "\\." + ipRange
-//                     + "\\." + ipRange
-//                     + "\\." + ipRange + "$");
-//    QRegExpValidator *ipValidator = new QRegExpValidator(ipRegex, this);
-//    ui->IPAddressLineEdit->setValidator(ipValidator);
+/*void DialogAdder::createUI()
+{
+    QString ipRange = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";
+    QRegExp ipRegex ("^" + ipRange
+                     + "\\." + ipRange
+                     + "\\." + ipRange
+                     + "\\." + ipRange + "$");
+    QRegExpValidator *ipValidator = new QRegExpValidator(ipRegex, this);
+    ui->DateLineEdit->setValidator(ipValidator);
 
-//    QString macRange = "(?:[0-9A-Fa-f][0-9A-Fa-f])";
-//    QRegExp macRegex ("^" + macRange
-//                      + "\\:" + macRange
-//                      + "\\:" + macRange
-//                      + "\\:" + macRange
-//                      + "\\:" + macRange
-//                      + "\\:" + macRange
-//                      + "\\:" + macRange + "$");
-//    QRegExpValidator *macValidator = new QRegExpValidator(macRegex, this);
-//    ui->MACLineEdit->setValidator(macValidator);
-//}
+    QString macRange = "(?:[0-9A-Fa-f][0-9A-Fa-f])";
+    QRegExp macRegex ("^" + macRange
+                      + "\\:" + macRange
+                      + "\\:" + macRange
+                      + "\\:" + macRange
+                      + "\\:" + macRange
+                      + "\\:" + macRange
+                      + "\\:" + macRange + "$");
+    QRegExpValidator *macValidator = new QRegExpValidator(macRegex, this);
+   ui->MACLineEdit->setValidator(macValidator);
+} */
 
-//void dialogAdder::on_buttonBox_accepted()
-//{
-//    /* SQL-запрос для проверки существования записи
-//     * с такими же учетными данными.
-//     * Если запись не существует или находится лишь индекс
-//     * редактируемой в данный момент записи,
-//     * то диалог позволяет вставку записи в таблицу данных
-//     * */
-//    QSqlQuery query;
-//    QString str = QString("SELECT EXISTS (SELECT " DEVICE_NAMES " FROM " DEVICE
-//                          " WHERE ( " DEVICE_NAMES " = '%1' "
-//                          " OR " DEVICE_DATE " = '%2' )"
-//                          " AND id NOT LIKE '%3' )")
-//            .arg(ui->HostnameLineEdit->text(),
-//                 ui->IPAddressLineEdit->text(),
-//                 model->data(model->index(mapper->currentIndex(),0), Qt::DisplayRole).toString());
+void DialogAdder::on_buttonBox_accepted()
+{
+    /* SQL-запрос для проверки существования записи
+     * с такими же учетными данными.
+     * Если запись не существует или находится лишь индекс
+     * редактируемой в данный момент записи,
+     * то диалог позволяет вставку записи в таблицу данных
+     * */
+    QSqlQuery query;
+    QString str = QString("SELECT EXISTS (SELECT " DEVICE_NAMES " FROM " DEVICE
+                          " WHERE ( " DEVICE_NAMES " = '%1' "
+                          " OR " DEVICE_DATE " = '%2' )"
+                          " AND id NOT LIKE '%3' )")
+            .arg(ui->NamesLineEdit->text(),
+                 ui->DateLineEdit->text(),
+                 model->data(model->index(mapper->currentIndex(),0), Qt::DisplayRole).toString());
 
-//    query.prepare(str);
-//    query.exec();
-//    query.next();
-
-//    /* Если запись существует, то диалог вызывает
-//     * предупредительное сообщение
-//     * */
-//    if(query.value(0) != 0){
-//        QMessageBox::information(this, trUtf8("Ошибка хоста"),
-//                                 trUtf8("Хост с таким именем или IP-адресом уже существует"));
-//    /* В противном случае производится вставка новых данных в таблицу
-//     * и диалог завершается с передачей сигнала для обновления
-//     * таблицы в главном окне
-//     * */
-//    } else {
-//        mapper->submit();
-//        model->submitAll();
-//        emit signalReady();
-//        this->close();
-//    }
-//}
+    query.prepare(str);
+    query.exec();
+    query.next();
+   /* Если запись существует, то диалог вызывает
+     * предупредительное сообщение
+     * */
+    if(query.value(0) != 0){
+        QMessageBox::information(this, tr("Ошибка хоста"),
+                               tr("Хост с таким именем или IP-адресом уже существует"));
+    /* В противном случае производится вставка новых данных в таблицу
+     * и диалог завершается с передачей сигнала для обновления
+     * таблицы в главном окне
+     * */
+    } else {
+        mapper->submit();
+        model->submitAll();
+        emit signalReady();
+        this->close();
+    }
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
