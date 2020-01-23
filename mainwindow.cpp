@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
                      << tr("Names")
                      << tr("Date")
                      << tr("Sum")
-
                      );
     this->createUI();
 }
@@ -48,42 +47,44 @@ void MainWindow::setupModel(const QString &tableName, const QStringList &headers
 }
 
 void MainWindow::createUI() {
-    ui->tableView->setModel(modelDevice);
-    ui->tableView->setColumnHidden(0, true);
-    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-    ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    ui->tableView->resizeColumnsToContents();
-    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableView->horizontalHeader()->setStretchLastSection(true);
+    ui->deviceTableView->setModel(modelDevice);     // Встановлюєм модель на TableView
+    ui->deviceTableView->setColumnHidden(0, true);    // Приховуємо колону id записів
+    // Дозволяєм виділення стрічок
+    ui->deviceTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    // Встановлюєм режим виділення лише однієї стрічки в таблиці
+    ui->deviceTableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    // Встановлюєм розмір колонок по вмісту
+    ui->deviceTableView->resizeColumnsToContents();
+    ui->deviceTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->deviceTableView->horizontalHeader()->setStretchLastSection(true);
 
-    modelDevice->select();
+    connect(ui->deviceTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(slotEditRecord(QModelIndex)));
 }
 
-
-/* Слот обновления модели представления данных
+/* Слот оновлення моделі представлення данних
  * */
 void MainWindow::slotUpdateModels()
 {
     modelDevice->select();
 }
 
-/* Метод для активации диалога добавления записей в режиме редактирования
- * с передачей индекса выбранной строки
+/* Метод для активації діалугу додавання записів в режимі редагування
+ * з передачюе індексу вибраної стрічки
  * */
 void MainWindow::slotEditRecord(QModelIndex index)
 {
-    /* Также создаем диалог и подключаем его сигнал завершения работы
-     * к слоту обновления вида модели представления данных, но передаём
-     * в качестве параметров строку записи
+    /* Також створюєм діалог і піключаємо його сигнал вавершення роботи
+     * до слоту оновелння виду моделі представлення данних, але передаємо
+     * в якості параметрів запису стрічки
      * */
     DialogAdder *addDeviceDialog = new DialogAdder(index.row());
     connect(addDeviceDialog, SIGNAL(signalReady()), this, SLOT(slotUpdateModels()));
 
-    /* Выполняем запуск диалогового окна
+    /* Виконуєм запуск діалогового вікна
      * */
-    addDeviceDialog->setWindowTitle(tr("Редактировать Устройство"));
+    addDeviceDialog->setWindowTitle(tr("Редагувати запис"));
     addDeviceDialog->exec();
 }
 
@@ -105,4 +106,3 @@ void MainWindow::on_addDeviceButton_clicked()
     adderDialog->setWindowTitle(tr("Додати запис"));
     adderDialog->exec();
 }
-

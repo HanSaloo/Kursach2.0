@@ -31,11 +31,12 @@ bool DataBase::restoreDataBase() {
     }
     return false;
 }
-/*Методи відкриття бази*/
+/*Методи відкриття бази
+*/
 bool DataBase::openDataBase() {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setHostName(DATABASE_NAME);
-    db.setDatabaseName("D:/example/" DATABASE_NAME);
+    db.setDatabaseName("С/example/" DATABASE_NAME);
     if(db.open()){
         return true;
     } else {
@@ -54,8 +55,6 @@ bool DataBase::createTable() {
                    TABLE_DATES "DATE     NOT NULL,"
                    TABLE_SUMA "INT(20)  NOT NULL,"
                    "PRIMARY KEY(id)"
-                  /* TABLE_CARNUMB "INTEGER    NOT NULL,"
-                   TABLE_MK "MARK      NOT NULL" */
                    " );"
                    )){
         qDebug() << "DataBase error of cteate " << TABLE;
@@ -72,8 +71,8 @@ bool DataBase::insertIntoTable(const QVariantList &data) {
                   DEVICE_NAMES ", "
                   DEVICE_DATES ", "
                   DEVICE_SUMA ", "
-                             " ) "
-                                "VALUES (:Names ,:Dates ,:Suma);"  );
+                              " ) "
+                              "VALUES (:Names ,:Dates ,:Suma);"  );
     query.bindValue(":Names", data[0].toString());
     query.bindValue(":Dates", data[1].toDate());
     query.bindValue(":Suma", data[2].toInt());

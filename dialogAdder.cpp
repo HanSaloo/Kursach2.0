@@ -1,4 +1,4 @@
-#include "dialogAdder.h"
+﻿#include "dialogAdder.h"
 #include "ui_dialogAdder.h"
 #include <QDebug>
 
@@ -8,24 +8,23 @@ DialogAdder :: DialogAdder(int row, QWidget *parent) :
 
     ui->setupUi(this);
 
-    /* Метода для инициализации модели,
-     * из которой будут транслироваться данные
+    /* Методу для ініціалізації моделі,
+     * з якої будуть транслюватися дані
      * */
     setupModel();
 
-    /* Если строка не задана, то есть равна -1,
+    /* Якщо рядок не заданий, то дорівнює -1,
      * тогда диалог работает по принципу создания новой записи.
-     * А именно, в модель вставляется новая строка и работа ведётся с ней.
+     * А саме, в модель вставляється новий рядок і робота ведеться з нею.
      * */
     if(row == -1){
         model->insertRow(model->rowCount(QModelIndex()));
         mapper->toLast();
-    /* В противном случае диалог настраивается на заданную запись
+        /* В іншому випадку діалог налаштовується на заданий запис.
      * */
     } else {
         mapper->setCurrentModelIndex(model->index(row,0));
     }
-
 }
 
 DialogAdder::~DialogAdder()
@@ -33,37 +32,37 @@ DialogAdder::~DialogAdder()
     delete ui;
 }
 
-/* Метод настройки модели данных и mapper
+/* Метод вимірювання моделі даних і mapper
  * */
 void DialogAdder::setupModel()
 {
-    /* Инициализируем модель и делаем выборку из неё
+    /* Ініціалізіруєм модель і робимо вибірку з неї
      * */
     model = new QSqlTableModel(this);
     model->setTable(DEVICE);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->select();
 
-    /* Инициализируем mapper и привязываем
-     * поля данных к объектам LineEdit
+    /* Ініціалізіруєм mapper і прив'язуємо до неї
+     * поля даних до об'єктів LineEdit
      * */
     mapper = new QDataWidgetMapper();
     mapper->setModel(model);
     mapper->addMapping(ui->NamesLineEdit, 1);
     mapper->addMapping(ui->DateLineEdit, 2);
     mapper->addMapping(ui->SumLineEdit, 3);
-    /* Ручное подтверждение изменения данных
+    /* Ручне підтвердження зміни даних
      * через mapper
      * */
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
     qDebug() << ui->NamesLineEdit->text();
-    /* Подключаем коннекты от кнопок пролистывания
-     * к прилистыванию модели данных в mapper
+    /*  Підключаємо коннект від кнопок гортання
+     * до гортання моделі даних в mapper
      * */
     connect(ui->previousButton, SIGNAL(clicked()), mapper, SLOT(toPrevious()));
     connect(ui->nextButton, SIGNAL(clicked()), mapper, SLOT(toNext()));
-    /* При изменении индекса в mapper изменяем состояние кнопок
+    /* При зміні індекса в mapper змінюєм стан клавіш
      * */
     connect(mapper, SIGNAL(currentIndexChanged(int)), this, SLOT(updateButtons(int)));
 }
@@ -71,17 +70,16 @@ void DialogAdder::setupModel()
 
 void DialogAdder::on_buttonBox_accepted()
 {
-    /* SQL-запрос для проверки существования записи
-     * с такими же учетными данными.
-     * Если запись не существует или находится лишь индекс
-     * редактируемой в данный момент записи,
-     * то диалог позволяет вставку записи в таблицу данных
+    /* SQL-запит для перевірки існування запису    * з такими ж обліковими даними.
+     * Якщо запис не існує або знаходиться лише індекс
+     * редагованого в даний момент записи,
+     * то діалог дозволяє вставку записи в таблицю даних
      * */
     QSqlQuery query;
-    QString str = QString("SELECT EXISTS (SELECT " DEVICE_NAMES " FROM " DEVICE
-                          " WHERE ( " DEVICE_NAMES " = '%1' "
-                          " OR " DEVICE_DATES " = '%2' )"
-                          " AND id NOT LIKE '%3' )")
+    QString str = QString( "SELECT EXISTS (SELECT " DEVICE_NAMES " FROM " DEVICE
+                           " WHERE ( " DEVICE_NAMES " = '%1' "
+                                                    " OR " DEVICE_DATES " = '%2' )"
+                                                                        " AND id NOT LIKE '%3' )" )
             .arg(ui->NamesLineEdit->text(),
                  ui->DateLineEdit->text(),
                  model->data(model->index(mapper->currentIndex(),0), Qt::DisplayRole).toString());
@@ -89,39 +87,38 @@ void DialogAdder::on_buttonBox_accepted()
     query.prepare(str);
     query.exec();
     query.next();
-   /* Если запись существует, то диалог вызывает
-     * предупредительное сообщение
+    /* Якщо запис існує, то діалог викликає
+     * попереджувальне повідомлення
      * */
-    if(query.value(0) != 0){
-        QMessageBox::information(this, tr("Ошибка хоста"),
-                               tr("Хост с таким именем или IP-адресом уже существует"));
-    /* В противном случае производится вставка новых данных в таблицу
-     * и диалог завершается с передачей сигнала для обновления
-     * таблицы в главном окне
-     * */
-    } else {
+   /*  if(query.value(0) != 0){
+        QMessageBox::information(this, tr("Помилка хоста"),
+                                 tr("Хост з таким ім'ям вже існує"));
+        /* В іншому випадку проводиться вставка нових даних в таблицю
+     * і діалог завершується з передачею сигналу для оновлення
+     * таблиці в головному вікні
+     *
+    } else { */
         mapper->submit();
         model->submitAll();
         emit signalReady();
         this->close();
     }
-}
-
+//}
 
 
 void DialogAdder::accept()
 {
-qDebug() << ui->NamesLineEdit->text();
+    qDebug() << ui->NamesLineEdit->text();
 }
 
-/* Метод изменения состояния активности кнопок пролистывания
+/* Метод зміни стану активності клавіш гортання
  * */
 void DialogAdder::updateButtons(int row)
 {
-    /* В том случае, если мы достигаем одного из крайних (самый первый или
-     * самый последний) из индексов в таблице данных,
-     * то мы изменяем состояние соответствующей кнопки на
-     * состояние неактивна
+    /* У тому випадку, якщо ми досягаємо одного з крайніх (найперший або
+     * останій) з індексів в таблиці даних,  
+  * то ми змінюємо стан відповідної клавіши на
+     * стан не активна
      * */
     ui->previousButton->setEnabled(row > 0);
     ui->nextButton->setEnabled(row < model->rowCount() - 1);

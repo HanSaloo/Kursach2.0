@@ -34,7 +34,6 @@ private:
 
 private:
     void setupModel();
-  //  void createUI();
     void accept();
 };
 
