@@ -59,7 +59,50 @@ void MainWindow::createUI() {
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
 
     modelDevice->select();
+}
 
 
+/* Слот обновления модели представления данных
+ * */
+void MainWindow::slotUpdateModels()
+{
+    modelDevice->select();
+}
+
+/* Метод для активации диалога добавления записей в режиме редактирования
+ * с передачей индекса выбранной строки
+ * */
+void MainWindow::slotEditRecord(QModelIndex index)
+{
+    /* Также создаем диалог и подключаем его сигнал завершения работы
+     * к слоту обновления вида модели представления данных, но передаём
+     * в качестве параметров строку записи
+     * */
+    DialogAdder *addDeviceDialog = new DialogAdder(index.row());
+    connect(addDeviceDialog, SIGNAL(signalReady()), this, SLOT(slotUpdateModels()));
+
+    /* Выполняем запуск диалогового окна
+     * */
+    addDeviceDialog->setWindowTitle(tr("Редактировать Устройство"));
+    addDeviceDialog->exec();
+}
+
+/* Метод для активації діалога додавання записів
+ * */
+
+
+
+void MainWindow::on_addDeviceButton_clicked()
+{
+    /* Створюєм діалог і підключаєм його согнал завершення роботи
+     * до слоту оновлення виду моделі данних
+     * */
+    DialogAdder *adderDialog = new DialogAdder();
+    connect(adderDialog, SIGNAL(signalReady()), this, SLOT(slotUpdateModels()));
+
+    /* Виконуєм запуск дівлогового вікна
+     * */
+    adderDialog->setWindowTitle(tr("Додати запис"));
+    adderDialog->exec();
 }
 
