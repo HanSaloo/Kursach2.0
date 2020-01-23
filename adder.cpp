@@ -7,19 +7,19 @@ AddDevice::AddDevice(int row, QWidget *parent) : QDialog(parent),
 
     ui->setupUi(this);
 
-    /* Метода для инициализации модели,
-     * из которой будут транслироваться данные
+    /* Методи для ініціалізації моделі,
+     * з якої будуть транслюватись данні
      * */
     setupModel();
 
-    /* Если строка не задана, то есть равна -1,
-     * тогда диалог работает по принципу создания новой записи.
-     * А именно, в модель вставляется новая строка и работа ведётся с ней.
+    /* Якщо стрічка не задана, тобто рівна -1,
+     * тоді діалог працює по принципу створення нового запису.
+     * А а саме, в модель вставляєтся нова стрічка і робота ведеться з нею.
      * */
     if(row == -1){
         model->insertRow(model->rowCount(QModelIndex()));
         mapper->toLast();
-    /* В противном случае диалог настраивается на заданную запись
+    /* В іншому випадку діалог налаштовується на заданий запис
      * */
     } else {
         mapper->setCurrentModelIndex(model->index(row,0));
@@ -33,26 +33,26 @@ AddDevice::~AddDevice()
     delete ui;
 }
 
-/* Метод настройки модели данных и mapper
+/* Метод налаштування моделі данних і mapper
  * */
 void AddDevice::setupModel()
 {
-    /* Инициализируем модель и делаем выборку из неё
+    /* Ініціалізуєм модель і робимо вибірку з неї
      * */
     model = new QSqlTableModel(this);
     model->setTable(DEVICE);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->select();
 
-    /* Инициализируем mapper и привязываем
-     * поля данных к объектам LineEdit
+    /* Ініціалізуєм mapper і привязуємо
+     * поля данних до обєктів LineEdit
      * */
     mapper = new QDataWidgetMapper();
     mapper->setModel(model);
     mapper->addMapping(ui->HostnameLineEdit, 1);
     mapper->addMapping(ui->IPAddressLineEdit, 2);
     mapper->addMapping(ui->MACLineEdit, 3);
-    /* Ручное подтверждение изменения данных
+    /* Ручне підтвердження зміни данних
      * через mapper
      * */
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
